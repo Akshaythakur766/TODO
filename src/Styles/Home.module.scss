@@ -1,0 +1,94 @@
+*{
+    margin:0;
+    padding:0 ;
+    box-sizing: border-box;
+  }
+.Home{
+    min-height: 95vh;
+    width:100%;
+    box-sizing: border-box;
+   
+}
+.Todo{
+    min-height: 60vh;
+    min-width:100%;
+    background: linear-gradient(to right, #caf0f8, #ffe5d9);
+    text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Todo h1{
+    font-size: 4rem;
+    font-weight: bolder;
+}
+
+.Todo p{
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.Features {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    background: linear-gradient(to right, #caf0f8, #ffe5d9);
+    padding: 2rem;
+    gap:2rem
+}
+
+.feature{
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: white;
+}
+
+.Icon{
+   border-radius: 1rem;
+   width: 100%; 
+}
+
+.feature h1{
+    font-size: 25px ;
+    padding: 1rem;
+    text-align: center;
+}
+.featureBlack{
+    background :Black;
+    color: white;
+    border:1px solid rgb(69, 66, 66);
+}
+
+.bodyBlack{
+    background :var(--black--back);
+    color: white;
+  }
+
+  @media (max-width:768px) {
+    .Features {
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        gap: 2rem;
+        width:100%
+    }
+
+
+    .feature{
+        padding: 1rem;
+    }
+}
+ @media (max-width:500px){
+    .Home{
+        min-height: 75vh;
+        width:100%;
+        
+    }
+    .Todo{
+        width: 100%;
+    }
+
+
+ }
+
+
+  

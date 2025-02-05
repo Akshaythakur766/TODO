@@ -1,0 +1,38 @@
+*{
+    margin:0;
+    padding:0 ;
+    box-sizing: border-box;
+  }
+.Footer{
+    width: 100%;
+    padding: 1rem;
+    min-height: 12rem;
+    background-color: black;
+    text-align: center;
+}
+.Links{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+    height:11rem
+}
+
+.links{
+    color:white;
+}
+.link a{
+    text-decoration: none;
+    color: white;
+}
+.rights{
+    color: white;
+    // padding-top:rem;
+    font-size: 0.8rem;
+}
+
+@media (max-width:500px) {
+    .Footer{
+        width: 100%;
+    } 
+}
