@@ -1,8 +1,8 @@
-*{
-    margin:0;
-    padding:0 ;
-    box-sizing: border-box;
-  }
+// *{
+//     margin:0;
+//     padding:0 ;
+//     box-sizing: border-box;
+//   }
 .Home{
     min-height: 95vh;
     width:100%;
@@ -60,7 +60,7 @@
 }
 
 .bodyBlack{
-    background :var(--black--back);
+    background :var(--black-back);
     color: white;
   }
 
