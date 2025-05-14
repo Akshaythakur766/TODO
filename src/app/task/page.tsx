@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { Button } from "Todo/Components/ui/button";
