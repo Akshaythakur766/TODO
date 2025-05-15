@@ -17,11 +17,13 @@ const Task = () => {
   }, []);
 
   const handleAddData = () => {
-    const newTask = { description: task, done: false };
-    const updatedTasks = [...data, newTask];
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    setData(updatedTasks);
-    setTask("");
+    if (task.length) {
+      const newTask = { description: task, done: false };
+      const updatedTasks = [...data, newTask];
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      setData(updatedTasks);
+      setTask("");
+    }
   };
 
   const handleDone = (index: number) => {
