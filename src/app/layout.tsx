@@ -4,6 +4,9 @@ import "./globals.css";
 import { Navbar } from "Todo/components/layout/Navbar";
 import { Footer } from "Todo/components/layout/Footer";
 import { ThemeProvider } from "Todo/contexts/ThemeContext";
+import { TooltipProvider } from "Todo/components/ui/tooltip";
+// import { Toaster } from "Todo/components/ui/toaster";  
+import { Toaster as Sonner } from "Todo/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +34,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <TooltipProvider>
+            {/* <Toaster /> */}
+            <Sonner />
+            <Navbar />
+            {children}
+            <Footer />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

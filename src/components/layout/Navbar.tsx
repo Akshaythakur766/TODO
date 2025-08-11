@@ -1,14 +1,15 @@
-"use client"
+"use client";
 import { Button } from "Todo/components/ui/button";
 import { Moon, Sun, CheckSquare } from "lucide-react";
 import { useTheme } from "Todo/contexts/ThemeContext";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
-//   const router = useRouter();
-  const isActive = (path: string) => false
+  const pathname = usePathname();
+
+  const isActive = (path: string) => pathname === path;
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

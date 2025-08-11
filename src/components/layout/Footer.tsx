@@ -46,10 +46,10 @@ export const Footer = () => {
         
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © 2024 TodoApp. All rights reserved.
+            © 2025 TodoApp. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground flex items-center">
-            Made with <Heart className="h-4 w-4 text-red-500 mx-1" /> using React & Tailwind
+            Made with <Heart className="h-4 w-4 text-red-500 mx-1" /> using Next & Tailwind
           </p>
         </div>
       </div>
