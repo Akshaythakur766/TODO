@@ -1,3 +1,4 @@
+"use client";
 import React, { Dispatch, SetStateAction } from "react";
 import {
   Dialog,
@@ -5,18 +6,152 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
-  DialogTrigger,
 } from "Todo/components/ui/dialog";
-const AddTask = ({open , setOpen}:{open:boolean ,setOpen:Dispatch<SetStateAction<boolean>>}) => {
+
+import { Form, FormItem, FormLabel, FormControl, FormMessage } from "Todo/components/ui/form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, Resolver, useForm } from "react-hook-form";
+import { getRandomValue } from "Todo/helper/getRandomValue";
+import { Button } from "Todo/components/ui/button";
+
+interface AddTaskType {
+  id?: string;
+  title: string;
+  createdAt?: Date;
+  updatedAt?: Date | null;
+  notification?: boolean;
+  taskPerformanceDate?: Date | null;
+  priority: "low" | "medium" | "high";
+}
+
+const AddTask = ({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) => {
+  const defaultValues: AddTaskType = {
+    id: getRandomValue(10),
+    title: "",
+    priority: "medium",
+    notification: false,
+    createdAt: new Date(),
+    updatedAt: null,
+    taskPerformanceDate: null,
+  };
+
+  const schema = yup.object().shape({
+    id: yup.string().required("ID is required"),
+    title: yup.string().required("Title is required"),
+    createdAt: yup.date().required("CreatedAt is required"),
+    updatedAt: yup.date().nullable(),
+    notification: yup.boolean().optional(),
+    taskPerformanceDate: yup.date().nullable(),
+    priority: yup
+      .mixed<"low" | "medium" | "high">()
+      .oneOf(["low", "medium", "high"], "Priority must be low, medium, or high")
+      .required("Priority is required"),
+  });
+
+  const form = useForm<AddTaskType>({
+    defaultValues,
+    mode: "onSubmit",
+    resolver: yupResolver(schema) as Resolver<AddTaskType>,
+  });
+
+  const onSubmit = (data: AddTaskType) => {
+    console.log("Task submitted:", data);
+    setOpen(false);
+  };
+
   return (
-    <Dialog open={open}  onOpenChange={()=>setOpen(false)} >
+    <Dialog open={open} onOpenChange={() => setOpen(false)}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
+          <DialogTitle>Add Task</DialogTitle>
+          {/* <DialogDescription> */}
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <Controller
+                  name="id"
+                  control={form.control}
+                  render={({ field }) => <input type="hidden" {...field} />}
+                />
+
+                <Controller
+                  name="title"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Task Title</FormLabel>
+                      <FormControl>
+                        <input {...field} placeholder="Enter task title" className="border p-2 rounded w-full" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Controller
+                  name="priority"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Priority</FormLabel>
+                      <FormControl>
+                        <select {...field} className="border p-2 rounded w-full">
+                          <option value="low">Low</option>
+                          <option value="medium">Medium</option>
+                          <option value="high">High</option>
+                        </select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Controller
+                  name="notification"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={field.value || false}
+                            onChange={(e) => field.onChange(e.target.checked)}
+                          />
+                          Enable Notification
+                        </label>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <Controller
+                  name="taskPerformanceDate"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Task Performance Date</FormLabel>
+                      <FormControl>
+                        <input
+                          type="date"
+                          value={field.value ? new Date(field.value).toISOString().split("T")[0] : ""}
+                          onChange={(e) =>
+                            field.onChange(e.target.value ? new Date(e.target.value) : null)
+                          }
+                          className="border p-2 rounded w-full"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button type="submit" className="bg-blue-500 text-white rounded p-2 mt-4">
+                  Submit
+                </Button>
+              </form>
+            </Form>
+          {/* </DialogDescription> */}
         </DialogHeader>
       </DialogContent>
     </Dialog>
