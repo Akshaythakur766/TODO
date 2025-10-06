@@ -22,8 +22,10 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
   const parsedDate = value ? new Date(value) : undefined;
   const isValidDate = parsedDate instanceof Date && !isNaN(parsedDate.getTime());
 
+
+
   return (
-    <Popover>
+    <Popover  >
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -38,7 +40,8 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
         <Calendar
           mode="single"
           selected={isValidDate ? parsedDate : undefined}
-          onSelect={onChange}
+          onSelect={(event)=>{
+            onChange(event)}}
         />
       </PopoverContent>
     </Popover>

@@ -21,6 +21,13 @@ import { Controller, Resolver, useForm } from "react-hook-form";
 import { getRandomValue } from "Todo/helper/getRandomValue";
 import { Button } from "Todo/components/ui/button";
 import { DatePicker } from "Todo/components/custom/DatePicker";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "Todo/components/ui/select";
 
 interface AddTaskType {
   id?: string;
@@ -70,7 +77,7 @@ const AddTask = ({
 
   const onSubmit = (data: AddTaskType) => {
     console.log("Task submitted:", data);
-    setOpen(false);
+    // setOpen(false);
   };
 
   return (
@@ -112,11 +119,19 @@ const AddTask = ({
                   <FormItem>
                     <FormLabel>Priority</FormLabel>
                     <FormControl>
-                      <select {...field} className="border p-2 rounded w-full">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                      </select>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Theme" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="low">Low</SelectItem>
+                          <SelectItem value="medium">Medium</SelectItem>
+                          <SelectItem value="high">High</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -149,17 +164,11 @@ const AddTask = ({
                   <FormItem>
                     <FormLabel>Task Performance Date</FormLabel>
                     <FormControl>
-                      {/* <input
-                          type="date"
-                          value={field.value ? new Date(field.value).toISOString().split("T")[0] : ""}
-                          onChange={(e) =>
-                            field.onChange(e.target.value ? new Date(e.target.value) : null)
-                          }
-                          className="border p-2 rounded w-full"
-                        /> */}
                       <DatePicker
                         value={field?.value as unknown as string}
-                        onChange={(val) => field.onChange(val ? new Date(val) : null)}
+                        onChange={(val) =>
+                          field.onChange(val ? new Date(val) : null)
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -167,10 +176,7 @@ const AddTask = ({
                 )}
               />
 
-              <Button
-                type="submit"
-                className="bg-blue-500 text-white rounded p-2 mt-4"
-              >
+              <Button type="submit" variant="default">
                 Submit
               </Button>
             </form>
