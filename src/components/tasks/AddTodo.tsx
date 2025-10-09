@@ -11,7 +11,6 @@ import {
 } from "Todo/components/ui/select";
 import { Plus } from "lucide-react";
 import { Todo } from "Todo/hooks/useTodos";
-
 interface AddTodoProps {
   onAdd: (text: string, priority: Todo["priority"]) => void;
 }

@@ -3,7 +3,6 @@
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import * as React from "react";
-
 import { Button } from "Todo/components/ui/button";
 import { Calendar } from "Todo/components/ui/calendar";
 import {
@@ -20,12 +19,11 @@ interface DatePickerProps {
 export function DatePicker({ value, onChange }: DatePickerProps) {
   // Convert to Date if possible
   const parsedDate = value ? new Date(value) : undefined;
-  const isValidDate = parsedDate instanceof Date && !isNaN(parsedDate.getTime());
-
-
+  const isValidDate =
+    parsedDate instanceof Date && !isNaN(parsedDate.getTime());
 
   return (
-    <Popover  >
+    <Popover>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -40,8 +38,9 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
         <Calendar
           mode="single"
           selected={isValidDate ? parsedDate : undefined}
-          onSelect={(event)=>{
-            onChange(event)}}
+          onSelect={(event) => {
+            onChange(event);
+          }}
         />
       </PopoverContent>
     </Popover>
