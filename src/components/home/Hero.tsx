@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const Hero = () => {
   return (
-    <section className="relative py-20 lg:py-32">
+    <section className="relative py-20 lg:py-32 w-full flex flex-col items-center" >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
       <div className="container relative px-4">
         <div className="max-w-4xl mx-auto text-center space-y-8">

@@ -1,26 +1,23 @@
 "use client";
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import {
   Dialog,
-  DialogHeader,
   DialogContent,
-  DialogDescription,
-  DialogTitle,
+  DialogHeader,
+  DialogTitle
 } from "Todo/components/ui/dialog";
 
-import {
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "Todo/components/ui/form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, Resolver, useForm } from "react-hook-form";
-import { getRandomValue } from "Todo/helper/getRandomValue";
+import { InlineDatePicker } from "Todo/components/custom/DatePicker";
 import { Button } from "Todo/components/ui/button";
-import { DatePicker } from "Todo/components/custom/DatePicker";
+import {
+  Form,
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "Todo/components/ui/form";
 import {
   Select,
   SelectContent,
@@ -28,6 +25,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "Todo/components/ui/select";
+import { getRandomValue } from "Todo/helper/getRandomValue";
+import * as yup from "yup";
+import { Checkbox } from "Todo/components/ui/checkbox";
+import { Label } from "Todo/components/ui/label";
 
 interface AddTaskType {
   id?: string;
@@ -84,10 +85,10 @@ const AddTask = ({
     <Dialog open={open} onOpenChange={() => setOpen(false)}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Task</DialogTitle>
+          <DialogTitle className="text-primary text-2xl w-full flex justify-center font-bold my-2">Add Task</DialogTitle>
           {/* <DialogDescription> */}
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 relative z-[9999] border-3 border-secondary p-3 rounded-sm">
               <Controller
                 name="id"
                 control={form.control}
@@ -123,7 +124,7 @@ const AddTask = ({
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
-                        <SelectTrigger className="w-[180px]">
+                        <SelectTrigger className="w-full">
                           <SelectValue placeholder="Theme" />
                         </SelectTrigger>
                         <SelectContent>
@@ -142,18 +143,21 @@ const AddTask = ({
                 name="notification"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <label className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          checked={field.value || false}
-                          onChange={(e) => field.onChange(e.target.checked)}
-                        />
-                        Enable Notification
-                      </label>
-                    </FormControl>
-                  </FormItem>
+                  <div className=" border-2 rounded-sm p-[9px] border-secondary">
+
+                    <FormItem>
+                      <FormControl >
+                        <Label className="flex items-center gap-2">
+                          <Checkbox
+                            checked={field?.value || false}
+                            className="p-2"
+                            onCheckedChange={field.onChange}
+                          />
+                          Enable Notification
+                        </Label>
+                      </FormControl>
+                    </FormItem>
+                  </div>
                 )}
               />
 
@@ -164,17 +168,16 @@ const AddTask = ({
                   <FormItem>
                     <FormLabel>Task Performance Date</FormLabel>
                     <FormControl>
-                      <DatePicker
-                        value={field?.value as unknown as string}
-                        onChange={(val) =>
-                          field.onChange(val ? new Date(val) : null)
-                        }
+                      <InlineDatePicker
+                        value={field.value}
+                        onChange={(date) => field.onChange(date)}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
 
               <Button type="submit" variant="default">
                 Submit

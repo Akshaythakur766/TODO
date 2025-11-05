@@ -42,7 +42,7 @@ const Tasks = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center py-8">
+    <div className="min-h-screen  w-full flex flex-col items-center justify-center py-8">
       <div className="container  max-w-4xl px-4">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">My Tasks</h1>
@@ -80,7 +80,7 @@ const Tasks = () => {
         </div>
 
         <AddTodo onAdd={addTodo} />
-        <Button  onClick={()=>setAddTask(true)} >Add Task</Button>
+        <Button className="cursor-pointer"  onClick={()=>setAddTask(true)} >Add Task</Button>
 
         <Card>
           <CardHeader className="pb-2">
